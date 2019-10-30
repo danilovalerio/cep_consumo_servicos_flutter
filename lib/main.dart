@@ -23,7 +23,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     String url = "https://viacep.com.br/ws/${cepDigitado}/json/";
 
     Response response;
-
     //requisição assincrona
     response = await get(url);
     //decodifica o json e armazena em um Map
@@ -33,11 +32,15 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     String bairro = retorno["bairro"];
     String localidade = retorno["localidade"];
 
-    setState(() {
-      _resultado = "${log}, ${compl}, ${bairro}, ${localidade}";
-    });
+    if(retorno != null){
+      setState(() {
+        _resultado = "${log}, ${compl}, ${bairro}, ${localidade}";
+      });
+    }
 
-//    print("resposta: " + response.statusCode.toString());
+
+
+    //print("resposta: " + response.statusCode.toString());
     print("resposta: " + response.body);
     print(log + " " + compl + " - " + bairro + " - " + localidade);
   }
