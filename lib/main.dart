@@ -13,9 +13,17 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-  _recuperarCep(){
+  _recuperarCep() async {
     String cep = "02840080";
     String url = "https://viacep.com.br/ws/${cep}/json/";
+
+    Response response;
+
+    response = await get(url);
+
+    print("resposta: " + response.statusCode.toString());
+    print("resposta: " + response.body);
+
   }
 
   @override
