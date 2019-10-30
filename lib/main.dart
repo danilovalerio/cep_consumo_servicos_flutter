@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
 
 void main() => runApp(MaterialApp(
   home: TelaPrincipal(),
@@ -20,9 +21,16 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     Response response;
 
     response = await get(url);
+    //decodifica o json e armazena em um Map
+    Map<String, dynamic> retorno = json.decode(response.body);
+    String log = retorno["logradouro"];
+    String compl = retorno["complemento"];
+    String bairro = retorno["bairro"];
 
-    print("resposta: " + response.statusCode.toString());
+
+//    print("resposta: " + response.statusCode.toString());
     print("resposta: " + response.body);
+    print(log+" "+compl+" - "+bairro);
 
   }
 
@@ -40,9 +48,18 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
-              child: Text("Clique aqui"),
-              onPressed: _recuperarCep,
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text("Clique aqui"),
+                    onPressed: _recuperarCep,
+                  )
+                ],
+              ),
             )
           ],
         ),
